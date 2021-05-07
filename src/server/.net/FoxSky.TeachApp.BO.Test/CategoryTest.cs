@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FoxSky.TeachApp.BO;
 using System;
 using System.Text;
@@ -8,26 +8,26 @@ using System.Collections.Generic;
 namespace FoxSky.TeachApp.BO.Test
 {
     [TestClass]
-    public class UserTest
+    public class CategoryTest
     {
         [TestMethod]
-        public void CheckAddingUserTest()
+        public void CheckCategoryTest()
         {
             using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 try
                 {
+                    var category = new List<Category>();
+                    db.Categories.Add(new Category { CategoryName = "house" });
+                    db.Categories.Add(new Category { CategoryName = "programming" });
+                    db.Categories.Add(new Category { CategoryName = "civ5" });
 
-                    db.Users.Add(new User() { Forename = "marcel", Surname = "fox" });
                     db.SaveChanges();
 
-                    var existing = db.Users.Find(1);
-                    Assert.IsNotNull(existing);
-                    Assert.AreEqual("marcel", existing.Forename);
+                    var exist = db.Categories.Find(3);
 
-                    var missing = db.Users.Find(2);
-                    Assert.IsNull(missing);
+                    Assert.AreEqual("civ5", exist.CategoryName);
                 }
                 finally
                 {
@@ -35,5 +35,5 @@ namespace FoxSky.TeachApp.BO.Test
                 }
             }
         }
-    }    
+    }
 }

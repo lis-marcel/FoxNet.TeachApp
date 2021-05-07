@@ -10,7 +10,5 @@ namespace FoxSky.TeachApp.BO
     {
         public int TagId { get; set; }
         public int WordId { get; set; }
-
-        public Word Word { get; set; }
     }
 }

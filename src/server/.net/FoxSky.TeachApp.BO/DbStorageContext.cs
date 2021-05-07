@@ -14,6 +14,9 @@ namespace FoxSky.TeachApp.BO
         public DbStorageContext(string dbPath) : base() => DbPath = dbPath;
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<TagLink> TagLinks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data source={DbPath}");
     }

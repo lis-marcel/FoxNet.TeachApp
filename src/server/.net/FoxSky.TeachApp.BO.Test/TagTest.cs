@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FoxSky.TeachApp.BO;
 using System;
 using System.Text;
@@ -8,26 +8,27 @@ using System.Collections.Generic;
 namespace FoxSky.TeachApp.BO.Test
 {
     [TestClass]
-    public class UserTest
+    public class TagTest
     {
         [TestMethod]
-        public void CheckAddingUserTest()
+        public void CheckTagTest()
         {
             using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 try
                 {
+                    var tag = new List<Tag>();
 
-                    db.Users.Add(new User() { Forename = "marcel", Surname = "fox" });
+                    db.Tags.Add(new Tag { TagName = "school" });
+                    db.Tags.Add(new Tag { TagName = "work" });
+                    db.Tags.Add(new Tag { TagName = "eng" });
+
                     db.SaveChanges();
+                    
+                    var exist = db.Tags.Find(2);
 
-                    var existing = db.Users.Find(1);
-                    Assert.IsNotNull(existing);
-                    Assert.AreEqual("marcel", existing.Forename);
-
-                    var missing = db.Users.Find(2);
-                    Assert.IsNull(missing);
+                    Assert.AreEqual("work", exist.TagName);
                 }
                 finally
                 {
@@ -35,5 +36,5 @@ namespace FoxSky.TeachApp.BO.Test
                 }
             }
         }
-    }    
+    }
 }

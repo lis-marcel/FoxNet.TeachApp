@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FoxSky.TeachApp.BO;
 using System;
 using System.Text;
@@ -8,26 +8,19 @@ using System.Collections.Generic;
 namespace FoxSky.TeachApp.BO.Test
 {
     [TestClass]
-    public class UserTest
+    public class TagLinkTest
     {
-        [TestMethod]
-        public void CheckAddingUserTest()
+        public void CheckTagLinkTest()
         {
             using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
+
                 try
                 {
+                    var tagLink = new List<TagLink>();
 
-                    db.Users.Add(new User() { Forename = "marcel", Surname = "fox" });
-                    db.SaveChanges();
-
-                    var existing = db.Users.Find(1);
-                    Assert.IsNotNull(existing);
-                    Assert.AreEqual("marcel", existing.Forename);
-
-                    var missing = db.Users.Find(2);
-                    Assert.IsNull(missing);
+                    //db.Tags.Add(new TagLink { TagId = 1, WordId = 1 });
                 }
                 finally
                 {
@@ -35,5 +28,5 @@ namespace FoxSky.TeachApp.BO.Test
                 }
             }
         }
-    }    
+    }
 }
