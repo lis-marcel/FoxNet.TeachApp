@@ -18,7 +18,6 @@ namespace FoxSky.TeachApp.BO.Test
                 db.Database.EnsureCreated();
                 try
                 {
-
                     db.Users.Add(new User() { Forename = "marcel", Surname = "fox" });
                     db.SaveChanges();
 

@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.BO", "FoxSky.TeachApp.BO\FoxSky.TeachApp.BO.csproj", "{05C0CA8B-34BD-4F6D-99BA-D4A9B6BAEEA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.Server", "FoxSky.TeachApp.Server\FoxSky.TeachApp.Server.csproj", "{7309D096-BDBD-4989-943C-CD8305DE7FA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.Service", "FoxSky.TeachApp.Server\FoxSky.TeachApp.Service.csproj", "{7309D096-BDBD-4989-943C-CD8305DE7FA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxSky.TeachApp.BO.Test", "FoxSky.TeachApp.BO.Test\FoxSky.TeachApp.BO.Test.csproj", "{B80E273D-C2DC-4723-A54B-462164657E0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.BO.Test", "FoxSky.TeachApp.BO.Test\FoxSky.TeachApp.BO.Test.csproj", "{B80E273D-C2DC-4723-A54B-462164657E0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxSky.TeachApp.Common", "FoxSky.TeachApp.Common\FoxSky.TeachApp.Common.csproj", "{26F1A992-B6C5-4E8F-A7B1-4F9455B2A03C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.Common", "FoxSky.TeachApp.Common\FoxSky.TeachApp.Common.csproj", "{26F1A992-B6C5-4E8F-A7B1-4F9455B2A03C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxSky.TeachApp.Service.Test", "FoxSky.TeachApp.Service.Test\FoxSky.TeachApp.Service.Test.csproj", "{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{26F1A992-B6C5-4E8F-A7B1-4F9455B2A03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26F1A992-B6C5-4E8F-A7B1-4F9455B2A03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26F1A992-B6C5-4E8F-A7B1-4F9455B2A03C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
