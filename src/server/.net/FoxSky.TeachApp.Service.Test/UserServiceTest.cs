@@ -65,12 +65,38 @@ namespace FoxSky.TeachApp.Service.Test
                 var us = new UserService(db);
 
                 // Add users using the service
-                var id1 = us.AddUser(new Data.UserData() { Forename = "Juna", Surname = "Juñska" });
+                var id = us.AddUser(new Data.UserData() { Forename = "Juna", Surname = "Juñska" });
 
-                var users = us.GetUser(1);
-                
+                var user = us.GetUser(id);
+                Assert.AreEqual(id, user.UserId);
+                //Assert.AreEqual("Juna", users.Forename);
+                Assert.AreSame("Juna", user.Forename);
 
                 db.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        public void EditUsersTest()
+        {
+            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            {
+                db.Database.EnsureCreated();
+                var us = new UserService(db);
+
+                // Add users using the service
+                var id1 = us.AddUser(new Data.UserData() { Forename = "Patyczek", Surname = "Kokosek" });
+                var id2 = us.AddUser(new Data.UserData() { Forename = "Pulchniutki", Surname = "Feleuœ" });
+
+                var u2 = us.GetUser(id2);
+                Assert.AreEqual(id2, u2.UserId);
+                
+                u2.Surname = "Kleofas";
+                us.EditUser(u2);
+
+                var u2_2 = us.GetUser(id2);
+                Assert.AreEqual(id2, u2.UserId);
+                Assert.AreEqual("Kleofas", u2_2.Surname);
             }
         }
 
