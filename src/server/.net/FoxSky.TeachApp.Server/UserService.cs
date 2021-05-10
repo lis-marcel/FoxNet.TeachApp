@@ -1,6 +1,8 @@
 ﻿using FoxSky.TeachApp.BO;
 using FoxSky.TeachApp.Service.Data;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FoxSky.TeachApp.Service
 {
@@ -35,6 +37,47 @@ namespace FoxSky.TeachApp.Service
             db.SaveChanges();
 
             return res.Entity.UserId;
+        }
+
+        public IList<UserData> GetUsers()
+        {
+            var db = GetContext();
+            var res = new List<UserData>();
+
+            foreach (var u in db.Users)
+            {
+                var ud = new UserData() { Forename = u.Forename, Surname = u.Surname, UserId = u.UserId };
+                res.Add(ud);
+            }
+
+            return res;
+        }
+
+        public UserData GetUser(int userId)
+        {
+            var db = GetContext();
+            var user = db.Users.Single(u => u.UserId == userId);
+
+            return new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname };
+        }
+
+        public void EditUser(UserData userData)
+        {
+            var db = GetContext();
+            var user = db.Users.Single(d => d.UserId == userData.UserId);
+            user.Surname = userData.Surname;
+            user.Forename = userData.Forename;
+
+            db.SaveChanges();
+        }
+
+        public void DeleteUser(int userId)
+        {
+            var db = GetContext();
+            var res = db.Users.Single(d => d.UserId == userId);
+            db.Users.Remove(res);
+
+            db.SaveChanges();
         }
     }
 }
