@@ -7,6 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Marcel Lis">
     <meta name="robots" content="noindex">
+    <script>
+        function deleteUser(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    loadData();
+                }
+            };
+
+            xmlhttp.open("POST", `/webapi/administration/deleteuser/${id}`, true);
+            xmlhttp.send();
+        }
+
+        function loadData() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var users = JSON.parse(this.responseText);
+                    var table = "<table>";
+                    for (var i = 0; i < users.length; i++) {
+                        table += `<tr><td>${users[i].userId}</td><td>${users[i].surname}</td><td>${users[i].forename}</td><td><button onclick="deleteUser(${users[i].userId})">Delete</button></td></tr>`;
+                    }
+                    table += "</table>";
+                    document.getElementById("myTable").innerHTML = table;
+                }
+            };
+            xmlhttp.open("GET", "/webapi/administration/users", true);
+            xmlhttp.send();
+        }
+
+    </script>
     <title>FoxSkyTeachApp</title>
 </head>
 <body>
@@ -23,7 +54,16 @@
     <form action="/webapi/administration/delete" method="post">
         <label for="id">ID:</label><br>
         <input type="text" id="id" name="id"><br><br>
-        <input type="submit" value="delete" />
+        <input type="submit" value="Delete" />
     </form>
+
+    <br>
+    <br>
+
+    <button onclick="loadData()">Load Data</button>
+
+    <div id="myTable">
+    </div>
+
 </body>
 </html>

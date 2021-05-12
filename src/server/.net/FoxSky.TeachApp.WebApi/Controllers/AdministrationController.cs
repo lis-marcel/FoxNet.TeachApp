@@ -35,8 +35,8 @@ namespace FoxSky.TeachApp.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
-        public void DeleteUser([FromForm] int id)
+        [Route("deleteuser/{id}")]
+        public void DeleteUser(int id)
         {
             new UserService().DeleteUser(id);
         }
