@@ -13,7 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.BO.Test", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.Common", "FoxSky.TeachApp.Common\FoxSky.TeachApp.Common.csproj", "{26F1A992-B6C5-4E8F-A7B1-4F9455B2A03C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxSky.TeachApp.Service.Test", "FoxSky.TeachApp.Service.Test\FoxSky.TeachApp.Service.Test.csproj", "{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxSky.TeachApp.Service.Test", "FoxSky.TeachApp.Service.Test\FoxSky.TeachApp.Service.Test.csproj", "{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxSky.TeachApp.WebApi", "FoxSky.TeachApp.WebApi\FoxSky.TeachApp.WebApi.csproj", "{CD6A6C44-48AC-4FDC-9EC1-A6CBE8556CAB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7309D096-BDBD-4989-943C-CD8305DE7FA2} = {7309D096-BDBD-4989-943C-CD8305DE7FA2}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F1F32226-E52D-4ECE-9CD8-64F45DDAB34F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +52,10 @@ Global
 		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98FCA6F5-F377-4B5D-BE1B-ABDA06B5D02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD6A6C44-48AC-4FDC-9EC1-A6CBE8556CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD6A6C44-48AC-4FDC-9EC1-A6CBE8556CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD6A6C44-48AC-4FDC-9EC1-A6CBE8556CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD6A6C44-48AC-4FDC-9EC1-A6CBE8556CAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

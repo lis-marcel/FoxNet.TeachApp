@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FoxSky.TeachApp.Console": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}

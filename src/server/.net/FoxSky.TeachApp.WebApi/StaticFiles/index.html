@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Marcel Lis">
+    <meta name="robots" content="noindex">
+    <title>FoxSkyTeachApp</title>
+</head>
+<body>
+    <form action="/webapi/administration/adduser" method="post">
+        <label for="Forename">Forename:</label><br>
+        <input type="text" id="Forename" name="Forename"><br>
+        <label for="Surname">Last name:</label><br>
+        <input type="text" id="Surname" name="Surname"><br><br>
+        <input type="submit" value="Add user" />
+    </form>
+
+    <br />
+
+    <form action="/webapi/administration/delete" method="post">
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id"><br><br>
+        <input type="submit" value="delete" />
+    </form>
+</body>
+</html>
