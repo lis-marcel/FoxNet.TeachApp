@@ -8,6 +8,29 @@
     <meta name="author" content="Marcel Lis">
     <meta name="robots" content="noindex">
     <script>
+        function startUp() {
+            var id = document.getElementById('id').value;
+            var ctrlForename = document.getElementById('Forename').value;
+            var ctrlSurname = document.getElementById('Surname').value;
+
+            if (id != "" && (ctrlForename == "" || ctrlSurname == "")) {
+                var edit = document.createElement('button');
+                var remove = document.createElement('button');
+
+                showUser(id);
+
+                edit.innerHTML = "Edit";
+                remove.innerHTML = "Delete";
+
+                document.body.appendChild(edit);
+                document.body.appendChild(remove);
+            }
+
+            else {
+                alert("ist over!")
+            }
+        }
+
         function deleteUser(id) {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
@@ -16,15 +39,16 @@
                 }
             };
 
-            xmlhttp.open("POST", `/webapi/administration/deleteuser/${id}`, true);
+            xmlhttp.open("POST", `/webapi/administration/user/delete/${id}`, true);
             xmlhttp.send();
         }
 
-        function loadData() {
+        function loadAllUsers() {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var users = JSON.parse(this.responseText);
+
                     var table = "<table>";
                     for (var i = 0; i < users.length; i++) {
                         table += `<tr><td>${users[i].userId}</td><td>${users[i].surname}</td><td>${users[i].forename}</td><td><button onclick="deleteUser(${users[i].userId})">Delete</button></td></tr>`;
@@ -33,34 +57,89 @@
                     document.getElementById("myTable").innerHTML = table;
                 }
             };
-            xmlhttp.open("GET", "/webapi/administration/users", true);
+            xmlhttp.open("GET", "/webapi/administration/user/all", true);
             xmlhttp.send();
+        }
+
+        function showUser(id) {
+            var ctrlForename = document.getElementById('Forename').value;
+            var ctrlSurname = document.getElementById('Surname').value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var user = JSON.parse(this.responseText);
+
+                    if (1 == 1) {
+                        ctrlForename = user.forename;
+                        ctrlSurname = user.surname;
+                    } else {
+                        alert("Something went wrong! Couldn't get data from server.");
+                    }
+                    
+                }
+            };
+            xmlhttp.open("GET", `/webapi/administration/user/get/${id}`, false);
+            xmlhttp.send();
+        }
+
+        function editUser() {
+            var id = document.getElementById('id').value;
+            var newForename = document.getElementById('Forename').value;
+            var newSurname = document.getElementById('Surname').value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var user = JSON.parse(this.responseText);
+
+                    user.forename = newForename;
+                    user.surname = newSurname;
+                }
+            };
+            xmlhttp.open("GET", `/webapi/administration/user/get/${id}`, true);
+            xmlhttp.send();
+        }
+
+        function addUser() {
+            var ctrlForename = document.getElementById('Forename');
+            var ctrlSurname = document.getElementById('Surname');
+
+            var user = {
+                surname: null,
+                forename: null
+            };
+
+            user.forename = ctrlForename.value;
+            user.surname = ctrlSurname.value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   ctrlForename.value = null;
+                   ctrlSurname.value = null;
+                   loadAllUsers();
+                }
+            };
+
+            xmlhttp.open("POST", `/webapi/administration/user/add`, true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify(user));
         }
 
     </script>
     <title>FoxSkyTeachApp</title>
 </head>
 <body>
-    <form action="/webapi/administration/adduser" method="post">
-        <label for="Forename">Forename:</label><br>
-        <input type="text" id="Forename" name="Forename"><br>
-        <label for="Surname">Last name:</label><br>
-        <input type="text" id="Surname" name="Surname"><br><br>
-        <input type="submit" value="Add user" />
-    </form>
+    <label for="id">ID:</label><br>
+    <input type="text" id="id" name="id"><br><br>
 
-    <br />
+    <label for="Forename">Forename:</label><br>
+    <input type="text" id="Forename" name="Forename" placeholder="Forename"><br>
+    <label for="Surname">Surname:</label><br>
+    <input type="text" id="Surname" name="Surname" placeholder="Surname"><br><br>
 
-    <form action="/webapi/administration/delete" method="post">
-        <label for="id">ID:</label><br>
-        <input type="text" id="id" name="id"><br><br>
-        <input type="submit" value="Delete" />
-    </form>
-
-    <br>
-    <br>
-
-    <button onclick="loadData()">Load Data</button>
+    <button onclick="startUp()" id="commit">Ok</button>
 
     <div id="myTable">
     </div>
