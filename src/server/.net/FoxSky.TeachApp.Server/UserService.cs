@@ -58,7 +58,9 @@ namespace FoxSky.TeachApp.Service
             var db = GetContext();
             var user = db.Users.SingleOrDefault(u => u.UserId == userId);
 
-            return new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname };
+            return user != null ?
+                new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname } :
+                null;
         }
 
         public void EditUser(UserData userData)

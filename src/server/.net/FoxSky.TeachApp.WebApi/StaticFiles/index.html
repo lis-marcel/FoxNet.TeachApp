@@ -13,8 +13,18 @@
             var div = document.getElementById('error');
             div.innerHTML = message;
         }
+         
+        function updateButtons() {
+            var id = document.getElementById('id').value;
+
+            var validId = (id != "" && id != null && parseInt(id));
+            document.getElementById('show').disabled = !validId;
+            document.getElementById('edit').disabled = !validId;
+        }
 
         function deleteUser(id) {
+            showMessage("");
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -27,10 +37,12 @@
         }
 
         function loadAllUsers() {
+            showMessage("");
+ 
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    var users = JSON.parse(this.responseText);
+                     var users = JSON.parse(this.responseText);
 
                     var table = "<table>";
                     for (var i = 0; i < users.length; i++) {
@@ -45,29 +57,31 @@
         }
 
         function showUser() {
+            showMessage("");
+
             var id = document.getElementById('id').value;
             var ctrlForename = document.getElementById('Forename').value;
             var ctrlSurname = document.getElementById('Surname').value;
 
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var user = JSON.parse(this.responseText);
-
-                    if (1 == 1) {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        var user = JSON.parse(this.responseText);
                         document.getElementById('Forename').value = user.forename;
                         document.getElementById('Surname').value = user.surname;
                     } else {
-                        alert("Something went wrong! Couldn't get data from server.");
+                        showMessage(`Could not load data from server for id: ${id}, status: ${this.status}`);
                     }
-                    
                 }
             };
-            xmlhttp.open("GET", `/webapi/administration/user/get/${id}`, false);
+            xmlhttp.open("GET", `/webapi/administration/user/get/${id}`, true);
             xmlhttp.send();
         }
 
         function updateUser() {
+            showMessage("");
+
             var user = {
                 userId: null,
                 surname: null,
@@ -96,6 +110,8 @@
         }
 
         function addUser() {
+            showMessage("");
+
             var ctrlForename = document.getElementById('Forename');
             var ctrlSurname = document.getElementById('Surname');
 
@@ -123,23 +139,22 @@
 
     </script>
     <title>FoxSkyTeachApp</title>
-</head>
-<body onload="loadAllUsers()">
+</head><body onload="loadAllUsers()">
     <div id="error"></div>
 
     <br>
 
     <label for="id">ID:</label><br>
-    <input type="text" id="id" name="id"><br><br>
+    <input type="text" id="id" name="id" onkeydown ="updateButtons()" onkeyup="updateButtons()" onchange="updateButtons()"><br><br>
 
     <label for="Forename">Forename:</label><br>
     <input type="text" id="Forename" name="Forename" placeholder="Forename"><br>
     <label for="Surname">Surname:</label><br>
     <input type="text" id="Surname" name="Surname" placeholder="Surname"><br><br>
 
-    <button id="show" onclick="showUser()">Show</button>
-    <button id="add" onclick="addUser()">Add</button>
-    <button id="edit" onclick="updateUser()">Edit</button>
+    <button id="show" onclick="showUser(); updateButtons()">Show</button>
+    <button id="add" onclick="addUser(); updateButtons()">Add</button>
+    <button id="edit" onclick="updateUser(); updateButtons()">Edit</button>
     <!-- <button id="delete" onclick="deleteUser()">Delete</button> -->
 
     <hr>
