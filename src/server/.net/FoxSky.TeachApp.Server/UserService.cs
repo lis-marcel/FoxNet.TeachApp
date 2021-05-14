@@ -31,7 +31,7 @@ namespace FoxSky.TeachApp.Service
 
         public int AddUser(UserData userData)
         {
-            var u = new User() { Surname = userData.Surname, Forename = userData.Forename };
+            var u = new User() { Forename = userData.Forename, Surname = userData.Surname, Password = userData.Password };
             var db = GetContext();
             var res = db.Users.Add(u);
             db.SaveChanges();
@@ -55,7 +55,7 @@ namespace FoxSky.TeachApp.Service
 
         public UserData GetUser(int userId)
         {
-            var db = GetContext();
+            var db = GetContext(); 
             var user = db.Users.SingleOrDefault(u => u.UserId == userId);
 
             return user != null ?

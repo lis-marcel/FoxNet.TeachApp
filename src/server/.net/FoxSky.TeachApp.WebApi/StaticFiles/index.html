@@ -9,7 +9,29 @@
     <meta name="robots" content="noindex">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script>
+        /*function checkIfIdExist(id) {
+            updateButtons();
+ 
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                     var users = JSON.parse(this.responseText);
+
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].userId == id) {
+                            return true;
+                        } else {
+                            showMessage(`User with given ID doesn't exist, status: ${this.status}`);
+                        }
+                    }
+                }
+            };
+            xmlhttp.open("GET", `/webapi/administration/user/get/${id}`, true);
+            xmlhttp.send();
+        }*/
+
         function showMessage(message) {
+            updateButtons();
             var div = document.getElementById('error');
             div.innerHTML = message;
         }
@@ -17,12 +39,22 @@
         function updateButtons() {
             var id = document.getElementById('id').value;
 
+            //Check when showing and editing should be avaliable
             var validId = (id != "" && id != null && parseInt(id));
             document.getElementById('show').disabled = !validId;
             document.getElementById('edit').disabled = !validId;
+
+            var forename = document.getElementById('Forename').value;
+            var surname = document.getElementById('Surname').value;
+
+            //Check when adding shoul be avaliable
+            var enableAdd = (forename != null && forename.trim() != "") &&
+                (surname != null && surname.trim() != "");
+            document.getElementById('add').disabled = !enableAdd;
         }
 
         function deleteUser(id) {
+            updateButtons()
             showMessage("");
 
             var xmlhttp = new XMLHttpRequest();
@@ -37,6 +69,7 @@
         }
 
         function loadAllUsers() {
+            updateButtons();
             showMessage("");
  
             var xmlhttp = new XMLHttpRequest();
@@ -57,6 +90,7 @@
         }
 
         function showUser() {
+            updateButtons();
             showMessage("");
 
             var id = document.getElementById('id').value;
@@ -114,21 +148,25 @@
 
             var ctrlForename = document.getElementById('Forename');
             var ctrlSurname = document.getElementById('Surname');
+            var ctrlPassword = document.getElementById('Password');
 
             var user = {
                 surname: null,
-                forename: null
+                forename: null,
+                password: null
             };
 
             user.forename = ctrlForename.value;
             user.surname = ctrlSurname.value;
+            user.password = ctrlPassword.value;
 
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                    ctrlForename.value = null;
                    ctrlSurname.value = null;
-                   //loadAllUsers();
+                   ctrlPassword.value = null;
+                   loadAllUsers();
                 }
             };
 
@@ -136,7 +174,6 @@
             xmlhttp.setRequestHeader("Content-type", "application/json");
             xmlhttp.send(JSON.stringify(user));
         }
-
     </script>
     <title>FoxSkyTeachApp</title>
 </head><body onload="loadAllUsers()">
@@ -145,20 +182,21 @@
     <br>
 
     <label for="id">ID:</label><br>
-    <input type="text" id="id" name="id" onkeydown ="updateButtons()" onkeyup="updateButtons()" onchange="updateButtons()"><br><br>
+    <input type="text" id="id" name="id" onkeyup="updateButtons()" onchange="updateButtons()"><br><br>
 
     <label for="Forename">Forename:</label><br>
-    <input type="text" id="Forename" name="Forename" placeholder="Forename"><br>
+    <input type="text" id="Forename" name="Forename" placeholder="Forename" onkeyup="updateButtons()" onchange="updateButtons()"><br>
     <label for="Surname">Surname:</label><br>
-    <input type="text" id="Surname" name="Surname" placeholder="Surname"><br><br>
+    <input type="text" id="Surname" name="Surname" placeholder="Surname" onkeyup="updateButtons()" onchange="updateButtons()"><br><br>
+    <label for="Password">Password:</label><br>
+    <input type="text" id="Password" name="Password" placeholder="Password" onkeyup="updateButtons()" onchange="updateButtons()"><br><br>
 
-    <button id="show" onclick="showUser(); updateButtons()">Show</button>
-    <button id="add" onclick="addUser(); updateButtons()">Add</button>
-    <button id="edit" onclick="updateUser(); updateButtons()">Edit</button>
-    <!-- <button id="delete" onclick="deleteUser()">Delete</button> -->
+    <button id="show" onclick="showUser()">Show</button>
+    <button id="add" onclick="addUser()">Add</button>
+    <button id="edit" onclick="updateUser()">Edit</button>
 
     <hr>
-
+    
     <div id="myTable">
     </div>
 
