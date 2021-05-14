@@ -41,11 +41,11 @@ namespace FoxSky.TeachApp.WebApi.Controllers
             return new UserService().GetUser(id);
         }
 
-        [HttpGet]
-        [Route("edit/{id}")]
-        public void EditUser(int id)
+        [HttpPost]
+        [Route("edit")]
+        public void EditUser(UserData userData)
         {
-            new UserService().DeleteUser(id);
+            new UserService().EditUser(userData);
         }
 
         [HttpPost]

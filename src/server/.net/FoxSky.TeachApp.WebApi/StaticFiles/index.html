@@ -7,35 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Marcel Lis">
     <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="style.css" type="text/css">
     <script>
-        function startUp() {
-            var id = document.getElementById('id').value;
-            var ctrlForename = document.getElementById('Forename').value;
-            var ctrlSurname = document.getElementById('Surname').value;
-
-            if (id != "" && (ctrlForename == "" || ctrlSurname == "")) {
-                var edit = document.createElement('button');
-                var remove = document.createElement('button');
-
-                showUser(id);
-
-                edit.innerHTML = "Edit";
-                remove.innerHTML = "Delete";
-
-                document.body.appendChild(edit);
-                document.body.appendChild(remove);
-            }
-
-            else {
-                alert("ist over!")
-            }
+        function showMessage(message) {
+            var div = document.getElementById('error');
+            div.innerHTML = message;
         }
 
         function deleteUser(id) {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    loadData();
+                    loadAllUsers();
                 }
             };
 
@@ -61,7 +44,8 @@
             xmlhttp.send();
         }
 
-        function showUser(id) {
+        function showUser() {
+            var id = document.getElementById('id').value;
             var ctrlForename = document.getElementById('Forename').value;
             var ctrlSurname = document.getElementById('Surname').value;
 
@@ -71,8 +55,8 @@
                     var user = JSON.parse(this.responseText);
 
                     if (1 == 1) {
-                        ctrlForename = user.forename;
-                        ctrlSurname = user.surname;
+                        document.getElementById('Forename').value = user.forename;
+                        document.getElementById('Surname').value = user.surname;
                     } else {
                         alert("Something went wrong! Couldn't get data from server.");
                     }
@@ -83,22 +67,32 @@
             xmlhttp.send();
         }
 
-        function editUser() {
-            var id = document.getElementById('id').value;
-            var newForename = document.getElementById('Forename').value;
-            var newSurname = document.getElementById('Surname').value;
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var user = JSON.parse(this.responseText);
-
-                    user.forename = newForename;
-                    user.surname = newSurname;
-                }
+        function updateUser() {
+            var user = {
+                userId: null,
+                surname: null,
+                forename: null
             };
-            xmlhttp.open("GET", `/webapi/administration/user/get/${id}`, true);
-            xmlhttp.send();
+
+            user.userId = document.getElementById('id').value;
+            
+            if (user.userId != null && user.userId != "") {
+                user.forename = document.getElementById('Forename').value;
+                user.surname = document.getElementById('Surname').value;
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        loadAllUsers();
+                    }
+                };
+
+                xmlhttp.open("POST", `/webapi/administration/user/edit`, true);
+                xmlhttp.setRequestHeader("Content-type", "application/json");
+                xmlhttp.send(JSON.stringify(user));
+            } else {
+                showMessage("Could not update, the reason: unknown ID");
+            }
         }
 
         function addUser() {
@@ -118,7 +112,7 @@
                 if (this.readyState == 4 && this.status == 200) {
                    ctrlForename.value = null;
                    ctrlSurname.value = null;
-                   loadAllUsers();
+                   //loadAllUsers();
                 }
             };
 
@@ -130,7 +124,11 @@
     </script>
     <title>FoxSkyTeachApp</title>
 </head>
-<body>
+<body onload="loadAllUsers()">
+    <div id="error"></div>
+
+    <br>
+
     <label for="id">ID:</label><br>
     <input type="text" id="id" name="id"><br><br>
 
@@ -139,10 +137,15 @@
     <label for="Surname">Surname:</label><br>
     <input type="text" id="Surname" name="Surname" placeholder="Surname"><br><br>
 
-    <button onclick="startUp()" id="commit">Ok</button>
+    <button id="show" onclick="showUser()">Show</button>
+    <button id="add" onclick="addUser()">Add</button>
+    <button id="edit" onclick="updateUser()">Edit</button>
+    <!-- <button id="delete" onclick="deleteUser()">Delete</button> -->
+
+    <hr>
 
     <div id="myTable">
     </div>
 
 </body>
-</html>
+</html> 
