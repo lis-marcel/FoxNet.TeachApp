@@ -3,6 +3,8 @@ using FoxSky.TeachApp.Service.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FoxSky.TeachApp.Service
 {
@@ -31,12 +33,13 @@ namespace FoxSky.TeachApp.Service
 
         public int AddUser(UserData userData)
         {
-            var u = new User() { Forename = userData.Forename, Surname = userData.Surname, Password = userData.Password };
+            var u = new User() { Forename = userData.Forename, Surname = userData.Surname, PasswordHash = User.GetPasswordHash(userData.Password), Email = userData.Email };
             var db = GetContext();
             var res = db.Users.Add(u);
             db.SaveChanges();
 
             return res.Entity.UserId;
+
         }
 
         public IList<UserData> GetUsers()
@@ -66,11 +69,19 @@ namespace FoxSky.TeachApp.Service
         public void EditUser(UserData userData)
         {
             var db = GetContext();
-            var user = db.Users.Single(d => d.UserId == userData.UserId);
-            user.Surname = userData.Surname;
-            user.Forename = userData.Forename;
+            var user = db.Users.SingleOrDefault(d => d.UserId == userData.UserId);
 
-            db.SaveChanges();
+            if (user == null)
+            {
+                db.SaveChanges();
+            }
+
+            else
+            {
+                user.Surname = userData.Surname;
+                user.Forename = userData.Forename;
+                db.SaveChanges();
+            }
         }
 
         public void DeleteUser(int userId)
