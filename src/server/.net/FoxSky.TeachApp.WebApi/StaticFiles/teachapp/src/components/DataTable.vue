@@ -1,27 +1,34 @@
 <template>
-    <div id="myTable">
+    <div>
+        <div>
+            <h2>{{user.userId}}</h2>
+            <h2>{{user.surname}}</h2>
+            <h2>{{user.forename}}</h2>
+        </div>
     </div>
 </template>
 
 <script>
-    var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                    var users = JSON.parse(this.responseText);
+    export default {
+        /*user: {
+            UserId: null,
+            Surname: null,
+            Forename: null,
+            Password: null
+        },*/
+        allUsers: [],
 
-                var table = "<table>";
-                for (var i = 0; i < users.length; i++) {
-                    table += `<tr><td>${users[i].userId}</td><td>${users[i].surname}</td><td>${users[i].forename}</td></tr>`;
-                }
-                table += "</table>";
-                document.getElementById("myTable").innerHTML = table;
+        data() {
+            return {
+                user: []
             }
-        };
-        xmlhttp.open("GET", "/webapi/administration/user/all", true);
-        xmlhttp.send();
+        },
+
+        mounted() {
+            fetch(`http://localhost:14512/webapi/administration/user/get/${1}`)
+                .then(stream => stream.json())
+                .then(data => this.user = data)
+                .catch(error => console.error(error))
+        }
+    }
 </script>
-
-<!--onclick="deleteUser(${users[i].userId})-->
-
-<style>
-</style>

@@ -4,6 +4,7 @@
     <div class="item">
       <UserViewComponent />     
     </div>
+
     <hr>
 
     <div>
