@@ -1,34 +1,36 @@
 <template>
     <div>
-        <div>
-            <h2>{{user.userId}}</h2>
-            <h2>{{user.surname}}</h2>
-            <h2>{{user.forename}}</h2>
-        </div>
+        <div id="myTable"></div>
+
+        <table id="dataTable" v-for="user in users" :key="user">
+            <tr>
+                <td>{{user.userId}}</td>
+                <td>{{user.surname}}</td>
+                <td>{{user.forename}}</td>
+            </tr>
+        </table>
     </div>
 </template>
 
 <script>
     export default {
-        /*user: {
-            UserId: null,
-            Surname: null,
-            Forename: null,
-            Password: null
-        },*/
-        allUsers: [],
-
         data() {
             return {
-                user: []
+                users: [],
             }
         },
 
         mounted() {
-            fetch(`http://localhost:14512/webapi/administration/user/get/${1}`)
+            fetch(`http://localhost:14512/webapi/administration/user/all`)
                 .then(stream => stream.json())
-                .then(data => this.user = data)
+                .then(data => this.users = data)
                 .catch(error => console.error(error))
         }
     }
 </script>
+
+<style>
+    #table {
+        
+    }
+</style>
