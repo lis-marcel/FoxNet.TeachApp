@@ -16,8 +16,8 @@
         <td>{{ user.forename }}</td>
 
         <td>
-            <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteUser(user.userId)" >Delete</button>
-            <button type="button" class="btn btn-primary btn-sm">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteUser(user.userId)">Delete</button>
+            <button type="button" class="btn btn-primary btn-sm" >Edit</button>
         </td>
         </tr>
     </tbody>
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-    import "./ModalQuestion.vue";
-
     export default {
         components: {
         },
