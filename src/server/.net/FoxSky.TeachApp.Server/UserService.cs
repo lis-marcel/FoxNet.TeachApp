@@ -8,7 +8,7 @@ using System.Text;
 
 namespace FoxSky.TeachApp.Service
 {
-    public class UserService
+    public class UserService 
     {
         private DbStorageContext context;
 
