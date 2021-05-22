@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link :to="{ name: 'Data'}">Data</router-link>
+    <router-link :to="{ name: 'home'}">Home</router-link> |
+    <router-link :to="{ name: 'user'}">User</router-link> |
+    <router-link :to="{ name: 'word'}">Word</router-link>
   </div>
   <router-view/>
 </template>
@@ -29,6 +30,6 @@
 
 #nav a.router-link-exact-active {
   color: #ffffff;
-  background: #2aebf1;
+  background: #222370;
 }
 </style>
