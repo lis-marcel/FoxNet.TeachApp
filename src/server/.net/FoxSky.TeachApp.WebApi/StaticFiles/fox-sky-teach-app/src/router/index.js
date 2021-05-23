@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import DataTable from '../views/DataTable.vue'
+import EditUser from '../views/EditUser.vue'
 import AddWord from '../views/AddWord.vue'
 
 const routes = [
@@ -15,13 +16,14 @@ const routes = [
     component: DataTable
   },
   {
-    path: '/word',
-    name: 'word',
-    component: DataTable
+    props: true,
+    path: `/user/edit/:userId`,
+    name: 'edit',
+    component: EditUser
   },
   {
-    path: '/edit',
-    name: 'edit',
+    path: '/word',
+    name: 'word',
     component: AddWord
   },
 ]

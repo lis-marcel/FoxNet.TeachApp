@@ -54,7 +54,7 @@
             },
             
             editUser: function(id) {
-                this.$router.push('/edit')
+                this.$router.push(`/user/edit/${id}`)
             }
         },
 
