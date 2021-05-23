@@ -27,9 +27,6 @@
 
 <script>
     export default {
-        components: {
-        },
-
         data() {
             return {
                 users: [],

@@ -33,7 +33,7 @@ namespace FoxSky.TeachApp.Service
 
         public int AddUser(UserData userData)
         {
-            var u = new User() { Forename = userData.Forename, Surname = userData.Surname, PasswordHash = User.GetPasswordHash(userData.Password), Email = userData.Email };
+            var u = new User() { Forename = userData.Forename, Surname = userData.Surname, Email = userData.Email, PasswordHash = User.GetPasswordHash(userData.Password), };
             var db = GetContext();
             var res = db.Users.Add(u);
             db.SaveChanges();
@@ -49,7 +49,7 @@ namespace FoxSky.TeachApp.Service
 
             foreach (var u in db.Users)
             {
-                var ud = new UserData() { Forename = u.Forename, Surname = u.Surname, UserId = u.UserId };
+                var ud = new UserData() { UserId = u.UserId, Forename = u.Forename, Surname = u.Surname, Email = u.Email, Password = u.PasswordHash };
                 res.Add(ud);
             }
 
@@ -62,7 +62,7 @@ namespace FoxSky.TeachApp.Service
             var user = db.Users.SingleOrDefault(u => u.UserId == userId);
 
             return user != null ?
-                new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname } :
+                new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname, Email = user.Email, Password = user.PasswordHash, } :
                 null;
         }
 
