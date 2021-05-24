@@ -39,6 +39,12 @@ namespace FoxSky.TeachApp.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => {
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.AllowAnyOrigin();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles(new StaticFileOptions

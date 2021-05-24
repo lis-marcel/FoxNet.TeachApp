@@ -11,15 +11,8 @@ namespace FoxSky.TeachApp.WebApi.Controllers
 {
     [ApiController]
     [Route("webapi/administration/user")]
-    public class AdministrationController : ControllerBase
+    public class UserController : ControllerBase
     {
-        /*[HttpGet]
-        [Route("addtestuser")]
-        public int PutUsers()
-        {
-            return new UserService().AddUser(new UserData { Forename = "linux", Surname = "debian"});
-        }*/
-
         [HttpPost]
         [Route("add")]
         public int AddUser([FromBody] UserData userData)

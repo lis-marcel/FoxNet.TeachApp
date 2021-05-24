@@ -3,10 +3,19 @@
     <table class="table table-striped">
         <thead>
             <tr>
-            <th>ID</th>
-            <th>Surname</th>
-            <th>Forename</th>
-            <th>Manage</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                    <button type="button" class="btn btn-primary btn-sm" @click="editOrAddUser(userId)">Add user</button>
+                </th>
+            </tr>
+
+            <tr>
+                <th>ID</th>
+                <th>Surname</th>
+                <th>Forename</th>
+                <th>Manage</th>
             </tr>
         </thead>
         <tbody>
@@ -17,7 +26,7 @@
 
             <td>
                 <button type="button" class="btn btn-danger btn-sm" @click="deleteUser(user.userId)">Delete</button>
-                <button type="button" class="btn btn-primary btn-sm" @click="editUser(user.userId)">Edit</button>
+                <button type="button" class="btn btn-primary btn-sm" @click="editOrAddUser(user.userId)">Edit</button>
             </td>
             </tr>
         </tbody>
@@ -50,9 +59,9 @@
                     .catch((error) => console.error(error))
             },
             
-            editUser: function(id) {
+            editOrAddUser: function(id) {
                 this.$router.push(`/user/edit/${id}`)
-            }
+            },
         },
 
         mounted() {

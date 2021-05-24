@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FoxSky.TeachApp.BO;
 
-namespace FoxSky.TeachApp.BO
+namespace FoxSky.TeachApp.Service.Data
 {
-    public class Word
+    public class WordData
     {
         public int WordId { get; set; }
         public int UserId { get; set; }
@@ -13,9 +16,5 @@ namespace FoxSky.TeachApp.BO
         public string Phrase { get; set; }
         public string Translation { get; set; }
         public string Note { get; set; }
-
-        public User User { get; }
-        public Tag Tag { get; }
-        public Category Category { get; }
     }
 }

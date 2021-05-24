@@ -39,7 +39,6 @@ namespace FoxSky.TeachApp.Service
             db.SaveChanges();
 
             return res.Entity.UserId;
-
         }
 
         public IList<UserData> GetUsers()
