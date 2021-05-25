@@ -8,12 +8,12 @@ using System.Collections.Generic;
 namespace FoxSky.TeachApp.BO.Test
 {
     [TestClass]
-    class WordsTest
+    public class WordsTest
     {
         [TestMethod]
         public void CheckWordsTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 try
@@ -22,13 +22,13 @@ namespace FoxSky.TeachApp.BO.Test
                     words.Add(new Word { Phrase = "kitty", Translation = "kotek" });
                     words.Add(new Word { Phrase = "kokosek", Translation = "nosek" });
                     words.Add(new Word { Phrase = "felek", Translation = "babeczka" });
-                    db.Users.Add(new User { Forename = "marcel", Surname = "fox", Word = words });
+                    db.Users.Add(new User { Forename = "marcel", Surname = "fox", PasswordHash = "marcel", Email = "marcel@mail.com", Words = words });
                     db.SaveChanges();
 
                     var existing = db.Users.Find(1);
                     Assert.IsNotNull(existing);
 
-                    Assert.AreEqual(words.Count, existing.Word.Count);
+                    Assert.AreEqual(words.Count, existing.Words.Count);
                 }
                 finally
                 {

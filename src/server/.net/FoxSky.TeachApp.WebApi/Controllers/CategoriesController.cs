@@ -10,14 +10,35 @@ using System.Threading.Tasks;
 namespace FoxSky.TeachApp.WebApi.Controllers
 {
     [ApiController]
-    [Route("/administration/category")]
-    public class CategoriesController : Controller
+    [Route("webapi/category")]
+    public class CategoriesController : ControllerBase
     {
         [HttpPost]
         [Route("add")]
-        public int AddCategory(CategoryData categoryData)
+        public int AddCategory([FromBody] CategoryData categoryData)
         {
-            return new CategoryData().AddCategory(categoryData);
+            return new CategoryService().AddCategory(categoryData);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public IList<CategoryData> GetAllCategories()
+        {
+            return new CategoryService().GetAllCategories();
+        }
+
+        [HttpGet]
+        [Route("get/{id}")]
+        public CategoryData GetCategory(int wordId)
+        {
+            return new CategoryService().GetCategory(wordId);
+        }
+
+        [HttpPost]
+        [Route("delete/{id}")]
+        public void DeleteCategory(int categoryId)
+        {
+            new CategoryService().DeleteCategory(categoryId);
         }
     }
 }

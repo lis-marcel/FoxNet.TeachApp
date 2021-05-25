@@ -14,8 +14,6 @@ namespace FoxSky.TeachApp.BO
         public string Translation { get; set; }
         public string Note { get; set; }
 
-        public User User { get; }
-        public Tag Tag { get; }
-        public Category Category { get; }
+        public User User { get; set; }
     }
 }

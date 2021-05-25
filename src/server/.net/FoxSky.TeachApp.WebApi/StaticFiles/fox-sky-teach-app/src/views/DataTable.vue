@@ -27,6 +27,7 @@
             <td>
                 <button type="button" class="btn btn-danger btn-sm" @click="deleteUser(user.userId)">Delete</button>
                 <button type="button" class="btn btn-primary btn-sm" @click="editOrAddUser(user.userId)">Edit</button>
+                <button type="button" class="btn btn-warning btn-sm" @click="loginAs(user.userId)">Login as</button>
             </td>
             </tr>
         </tbody>
@@ -62,6 +63,10 @@
             editOrAddUser: function(id) {
                 this.$router.push(`/user/edit/${id}`)
             },
+
+            loginAs: function(id) {
+                this.$router.push(`/user/home/${id}`)
+            }
         },
 
         mounted() {

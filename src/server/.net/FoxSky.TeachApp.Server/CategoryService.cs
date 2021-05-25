@@ -8,29 +8,8 @@ using System.Text;
 
 namespace FoxSky.TeachApp.Service
 {
-    class CategoryService
+    public class CategoryService : ServiceBase
     {
-        private DbStorageContext context;
-
-        public CategoryService()
-        {
-        }
-
-        public CategoryService(DbStorageContext context)
-        {
-            this.context = context;
-        }
-
-        private DbStorageContext GetContext()
-        {
-            if (context == null)
-            {
-                context = DbStorageFactory.GetInstance();
-            }
-
-            return context;
-        }
-
         public int AddCategory(CategoryData categoryData)
         {
             var c = new Category() { CategoryName = categoryData.CategoryName };
@@ -49,6 +28,20 @@ namespace FoxSky.TeachApp.Service
             return category != null ?
                 new CategoryData() { CategoryId = category.CategoryId, CategoryName = category.CategoryName } :
                 null;
+        }
+
+        public IList<CategoryData> GetAllCategories()
+        {
+            var db = GetContext();
+            var res = new List<CategoryData>();
+
+            foreach (var c in db.Categories)
+            {
+                var category = new CategoryData() { CategoryId = c.CategoryId, CategoryName = c.CategoryName };
+                res.Add(category);
+            }
+
+            return res;
         }
 
         public void EditCategory(CategoryData categoryData)

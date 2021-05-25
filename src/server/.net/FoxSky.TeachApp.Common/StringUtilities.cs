@@ -8,7 +8,7 @@ namespace FoxSky.TeachApp.Common
         private const string WORD_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private static Random random = new Random();
 
-        public static string GenerateRandomWord(int maxLength)
+        public static string GetRndWord(int maxLength)
         {
             var sb = new StringBuilder();
 

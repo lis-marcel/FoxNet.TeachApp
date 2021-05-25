@@ -12,7 +12,7 @@ namespace FoxSky.TeachApp.BO.Test
     {
         public void CheckTagLinkTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
 

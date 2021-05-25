@@ -13,7 +13,7 @@ namespace FoxSky.TeachApp.BO
         public string PasswordHash { get; set; }
         public string Email { get; set; }
 
-        public List<Word> Word { get; set; }
+        public List<Word> Words { get; set; }
 
         public static string GetPasswordHash(string password)
         {

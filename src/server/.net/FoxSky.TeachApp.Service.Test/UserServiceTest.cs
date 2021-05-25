@@ -15,7 +15,7 @@ namespace FoxSky.TeachApp.Service.Test
         [TestMethod]
         public void AddUserTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 var us = new UserService(db);
@@ -38,7 +38,7 @@ namespace FoxSky.TeachApp.Service.Test
         [TestMethod]
         public void GetUsersTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 var us = new UserService(db);
@@ -59,7 +59,7 @@ namespace FoxSky.TeachApp.Service.Test
         [TestMethod]
         public void GetUserTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 var us = new UserService(db);
@@ -79,7 +79,7 @@ namespace FoxSky.TeachApp.Service.Test
         [TestMethod]
         public void EditUsersTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 var us = new UserService(db);
@@ -103,7 +103,7 @@ namespace FoxSky.TeachApp.Service.Test
         [TestMethod]
         public void DeleteUsersTest()
         {
-            using (var db = new DbStorageContext($"{StringUtilities.GenerateRandomWord(10)}.sqlite"))
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
                 var us = new UserService(db);

@@ -8,29 +8,8 @@ using System.Text;
 
 namespace FoxSky.TeachApp.Service
 {
-    public class UserService 
+    public class UserService : ServiceBase
     {
-        private DbStorageContext context;
-
-        public UserService()
-        {
-        }
-
-        public UserService(DbStorageContext context)
-        {
-            this.context = context;
-        }
-
-        private DbStorageContext GetContext()
-        {
-            if (context == null)
-            {
-                context = DbStorageFactory.GetInstance();
-            }
-
-            return context;
-        }
-
         public int AddUser(UserData userData)
         {
             var u = new User() { Forename = userData.Forename, Surname = userData.Surname, Email = userData.Email, PasswordHash = User.GetPasswordHash(userData.Password), };

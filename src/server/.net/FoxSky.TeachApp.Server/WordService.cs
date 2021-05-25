@@ -8,32 +8,11 @@ using System.Text;
 
 namespace FoxSky.TeachApp.Service
 {
-    public class WordService
+    public class WordService : ServiceBase
     {
-        private DbStorageContext context;
-
-        public WordService()
-        {
-        }
-
-        public WordService(DbStorageContext context)
-        {
-            this.context = context;
-        }
-
-        private DbStorageContext GetContext()
-        {
-            if (context == null)
-            {
-                context = DbStorageFactory.GetInstance();
-            }
-
-            return context;
-        }
-
         public int AddWord(WordData wordData)
         {
-            var w = new Word() { UserId = wordData.UserId, CategoryId = wordData.CategoryId, Phrase = wordData.Phrase, Note = wordData.Note, Translation = wordData.Translation };
+            var w = new Word() { UserId = wordData.UserId, CategoryId = wordData.CategoryId, Phrase = wordData.Phrase, Translation = wordData.Translation, Note = wordData.Translation };
             var db = GetContext();
             var res = db.Words.Add(w);
             db.SaveChanges();
@@ -41,20 +20,37 @@ namespace FoxSky.TeachApp.Service
             return res.Entity.WordId;
         }
 
+        public IList<WordData> GetAllWords(int userId)
+        {
+            var db = GetContext();
+            var res = new List<WordData>();
+
+            return db.Words
+                .Where(w => w.UserId == userId)
+                .Select(w => new WordData() 
+                { 
+                    WordId = w.WordId,
+                    CategoryId = w.CategoryId,
+                    Phrase = w.Phrase,
+                    Translation = w.Translation,
+                    Note = w.Note
+                })
+                .ToList();
+        }
+
         public WordData GetWord(int wordId)
         {
             var db = GetContext();
-            var word = db.Words.SingleOrDefault(u => u.WordId == wordId);
+            var word = db.Words.SingleOrDefault(w => w.WordId == wordId);
 
             return word != null ?
-                new WordData() { CategoryId = word.CategoryId, Phrase = word.Phrase, Note = word.Note, Translation = word.Translation } :
-                null;
+                new WordData() { CategoryId = word.CategoryId, Phrase = word.Phrase, Translation = word.Translation, Note = word.Note } : null;
         }
 
         public void EditWord(WordData wordData)
         {
             var db = GetContext();
-            var word = db.Words.SingleOrDefault(d => d.WordId == wordData.WordId);
+            var word = db.Words.SingleOrDefault(w => w.WordId == wordData.WordId);
 
             if (word == null)
             {

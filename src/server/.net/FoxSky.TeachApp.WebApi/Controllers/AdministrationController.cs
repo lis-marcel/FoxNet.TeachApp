@@ -17,35 +17,50 @@ namespace FoxSky.TeachApp.WebApi.Controllers
         [Route("add")]
         public int AddUser([FromBody] UserData userData)
         {
-            return new UserService().AddUser(userData);
+            using (var service = new UserService())
+            {
+                return service.AddUser(userData); 
+            }
         }
 
         [HttpGet]
         [Route("all")]
         public IList<UserData> GetUsers()
         {
-            return new UserService().GetUsers();
+            using (var service = new UserService())
+            {
+                return service.GetUsers();
+            }
         }
 
         [HttpGet]
         [Route("get/{id}")]
         public UserData GetUser(int id)
         {
-            return new UserService().GetUser(id);
+            using (var service = new UserService())
+            {
+                return service.GetUser(id);
+            }
         }
 
         [HttpPost]
         [Route("edit")]
         public void EditUser(UserData userData)
         {
-            new UserService().EditUser(userData);
+            using (var service = new UserService())
+            {
+                service.EditUser(userData);
+            }
         }
 
         [HttpPost]
         [Route("delete/{id}")]
         public void DeleteUser(int id)
         {
-            new UserService().DeleteUser(id);
+            using (var service = new UserService())
+            {
+                service.DeleteUser(id);
+            }
         }
     }
 }
