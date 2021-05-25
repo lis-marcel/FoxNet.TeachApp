@@ -16,6 +16,7 @@ namespace FoxSky.TeachApp.BO.Test
             using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
             {
                 db.Database.EnsureCreated();
+
                 try
                 {
                     var words = new List<Word>();

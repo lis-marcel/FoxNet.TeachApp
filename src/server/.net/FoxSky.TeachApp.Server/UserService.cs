@@ -10,6 +10,14 @@ namespace FoxSky.TeachApp.Service
 {
     public class UserService : ServiceBase
     {
+        public UserService() : base()
+        {
+        }
+
+        public UserService(DbStorageContext context) : base(context)
+        {
+        }
+
         public int AddUser(UserData userData)
         {
             var u = new User() { Forename = userData.Forename, Surname = userData.Surname, Email = userData.Email, PasswordHash = User.GetPasswordHash(userData.Password), };

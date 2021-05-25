@@ -26,8 +26,6 @@ namespace FoxSky.TeachApp.BO
 
         private static void LoadTestData(DbStorageContext ctx)
         {
-            var cTest = ctx.Categories.Add(new Category() { CategoryName = "TestData" });
-
             for (int i = 0; i < 100; i++)
             {
                 var words = new List<Word>();
