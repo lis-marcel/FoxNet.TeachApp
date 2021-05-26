@@ -14,8 +14,6 @@
     import './DataTable.vue'
 
     export default {
-        props: ['userId'],
-
         data() {
             return {
                 user: {

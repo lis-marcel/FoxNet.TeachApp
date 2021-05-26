@@ -1,35 +1,44 @@
-/<template>
+<template>
     <div>
-        <h1>{{category.categoryname}}</h1>
+        <div id="menu">
+            <MenuComponent />
+        </div>
+        <div class="content">
+            <CategoriesComponent />
+            <br>
+            <WordComponent :selectedCategory="selectedCategory"/>
+        </div>
     </div>
 </template>
 
 <script>
+    import Categories from '../components/Categories.vue'
+    import Word from '../components/Words.vue'
+    import Menu from '../components/Menu.vue'
+
     export default {
-        props: ['userId'],
+        props: ['userId', 'selectedCategory'],
 
-        data() {
-            return {
-                user: {
-                    forename: null,
-                    surname: null,
-                    email: null,
-                    password: null
-                }
-            }
-        },
-
-        methods: {
-            fetchUser: function(userId) {
-                fetch(`http://localhost:14512/webapi/category/all/${userId}`)
-                    .then(response => response.json())
-                    .then(data => this.user = data)
-                    .catch(error => console.error(error))
-            },
-        },
-
-        mounted() {
-            this.fetchUser(this.userId);
+        components: {
+            CategoriesComponent: Categories,
+            WordComponent: Word,
+            MenuComponent: Menu
         }
     }
 </script>
+
+<style>
+    body, html {
+        height: 100%;
+    }
+
+    #menu {
+        border-right: 1px solid #cdcdcd;
+        float: left;
+        width: 15%;
+        height: 100%;
+    }
+
+    .content {
+    }
+</style>
