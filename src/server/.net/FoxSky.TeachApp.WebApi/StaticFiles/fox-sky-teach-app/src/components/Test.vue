@@ -1,6 +1,8 @@
 <template>
     <div class="test">
-        
+        <h1>Solve test</h1>
+        <h1>Solve test</h1>
+        <h1>Solve test</h1>
     </div>
 </template>
 
@@ -17,8 +19,9 @@
 <style>
     .test {
         border: 1px solid #cdcdcd;
-        width: 30%;
+        width: 27%;
         float: left;
         margin-left: 10px;
+        display:inline;
     }
 </style>

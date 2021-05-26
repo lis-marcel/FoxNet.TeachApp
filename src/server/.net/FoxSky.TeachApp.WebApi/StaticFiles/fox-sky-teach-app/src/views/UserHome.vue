@@ -4,25 +4,28 @@
             <MenuComponent />
         </div>
         <div class="content">
-            <CategoriesComponent />
-            <br>
-            <WordComponent :selectedCategory="selectedCategory"/>
+            <WordComponent :userId="userId"/>
+            <TestComponent />
+            <ResultComponent />
+
         </div>
     </div>
 </template>
 
 <script>
-    import Categories from '../components/Categories.vue'
     import Word from '../components/Words.vue'
     import Menu from '../components/Menu.vue'
+    import Test from '../components/Test.vue'
+    import Result from '../components/ShowResults.vue'
 
     export default {
-        props: ['userId', 'selectedCategory'],
+        props: ['userId'],
 
         components: {
-            CategoriesComponent: Categories,
             WordComponent: Word,
-            MenuComponent: Menu
+            MenuComponent: Menu,
+            TestComponent: Test,
+            ResultComponent: Result
         }
     }
 </script>
@@ -37,8 +40,5 @@
         float: left;
         width: 15%;
         height: 100%;
-    }
-
-    .content {
     }
 </style>
