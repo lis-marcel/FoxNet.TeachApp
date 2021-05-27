@@ -5,14 +5,13 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th></th>
                 <th>
                     <button type="button" class="btn btn-primary btn-sm" @click="editOrAddUser(userId)">Add user</button>
                 </th>
             </tr>
 
             <tr>
-                <th>ID</th>
+                <th>{{this.$loggedUserId}}</th>
                 <th>Surname</th>
                 <th>Forename</th>
                 <th>Manage</th>
@@ -20,7 +19,6 @@
         </thead>
         <tbody>
             <tr v-for="user in users" :key="user.userId">
-            <td>{{ user.userId }}</td>
             <td>{{ user.surname }}</td>
             <td>{{ user.forename }}</td>
 
@@ -37,8 +35,6 @@
 
 <script>
     export default {
-        props: ['userId'],
-
         data() {
             return {
                 users: [],
@@ -47,14 +43,14 @@
 
         methods: {
             fetchAllUsers: function() {
-                fetch(`http://localhost:14512/webapi/administration/user/all`)
+                fetch(`${this.$serverUrl}/administration/user/all`)
                     .then((response) => response.json())
                     .then((data) => (this.users = data))
                     .catch((error) => console.error(error));
             },
 
             deleteUser: function(id) {
-                fetch(`http://localhost:14512/webapi/administration/user/delete/${id}`, {method: 'POST'})
+                fetch(`${this.$serverUrl}/administration/user/delete/${id}`, {method: 'POST'})
                     .then(response => { 
                         if (response.ok) {
                             this.fetchAllUsers()
@@ -63,11 +59,12 @@
             },
             
             editOrAddUser: function(id) {
-                this.$router.push(`/user/edit/${id}`)
+                this.$router.push(`/edituser/${id}`)
             },
 
             loginAs: function(id) {
-                this.$router.push(`/user/home/${id}`)
+                this.$loggedUserId = id;
+                //this.$router.push(`/`)
             }
         },
 

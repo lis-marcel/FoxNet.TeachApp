@@ -1,9 +1,9 @@
 <template>
     <div class="words">
         <div class="categories">
-            <select v-model="categories.categoryId">
+            <select  v-model="word.categoryId">
                 <option disabled value="">Please select one</option>
-                <option v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</option>
+                <option v-for="category in categories" v-bind:key="category.categoryId">{{category.categoryName}}</option>
             </select>
         </div>
         <br>
@@ -27,7 +27,7 @@
         data() {
             return {
                 categories: [],
-
+                
                 word: {
                     userId: this.userId,
                     categoryId: null,

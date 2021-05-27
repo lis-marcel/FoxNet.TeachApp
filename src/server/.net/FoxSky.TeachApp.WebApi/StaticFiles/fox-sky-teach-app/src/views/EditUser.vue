@@ -11,9 +11,11 @@
 </template>
 
 <script>
-    import './DataTable.vue'
+    import './AllUsers.vue'
 
     export default {
+        props: ['userId'],
+
         data() {
             return {
                 user: {
@@ -53,7 +55,7 @@
             },
 
             returnToAllUsers: function() {
-                this.$router.push('/user')
+                this.$router.push('/users')
             }
         },
 
