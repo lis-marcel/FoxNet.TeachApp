@@ -90,7 +90,7 @@ namespace FoxSky.TeachApp.Service.Test
 
                 var u2 = us.GetUser(id2);
                 Assert.AreEqual(id2, u2.UserId);
-                
+
                 u2.Surname = "Kleofas";
                 us.EditUser(u2);
 
@@ -116,12 +116,41 @@ namespace FoxSky.TeachApp.Service.Test
                 Assert.AreEqual(2, users.Count);
 
                 us.DeleteUser(id1);
-                
+
                 users = us.GetUsers();
                 Assert.AreEqual(1, users.Count);
                 Assert.AreEqual(id2, users.FirstOrDefault().UserId);
 
                 db.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        public void LoginTest()
+        {
+            using (var db = new DbStorageContext($"{StringUtilities.GetRndWord(10)}.sqlite"))
+            {
+                db.Database.EnsureCreated();
+                var us = new UserService(db);
+
+                // Add users using the service
+                var id1 = us.AddUser(new Data.UserData() { Forename = "Marcel", Surname = "Lis", Login = "ok1", Password = "test" });
+                var id2 = us.AddUser(new Data.UserData() { Forename = "Marcel", Surname = "Lis", Login = "ok2", Password = "test" });
+                Assert.IsTrue(id1 != id2);
+
+                var loggedId1 = us.Login("ok1", "test");
+                Assert.IsNotNull(loggedId1);
+                Assert.AreEqual(id1, loggedId1.UserId);
+
+                var loggedId2 = us.Login("ok2", "test");
+                Assert.IsNotNull(loggedId2);
+                Assert.AreEqual(id2, loggedId2.UserId);
+
+                var notLoggedWrongPwd = us.Login("ok1", "duppa");
+                Assert.IsNull(notLoggedWrongPwd);
+
+                var notLoggedWrongLogin = us.Login("ok1_", "dupa");
+                Assert.IsNull(notLoggedWrongLogin);
             }
         }
     }

@@ -20,7 +20,14 @@ namespace FoxSky.TeachApp.Service
 
         public int AddUser(UserData userData)
         {
-            var u = new User() { Forename = userData.Forename, Surname = userData.Surname, Email = userData.Email, PasswordHash = User.GetPasswordHash(userData.Password), };
+            var u = new User() {
+                Login = userData.Login,
+                Email = userData.Email,
+                Forename = userData.Forename, 
+                Surname = userData.Surname,
+                PasswordHash = User.GetPasswordHash(userData.Password), 
+            };
+
             var db = GetContext();
             var res = db.Users.Add(u);
             db.SaveChanges();
@@ -35,11 +42,18 @@ namespace FoxSky.TeachApp.Service
 
             foreach (var u in db.Users)
             {
-                var ud = new UserData() { UserId = u.UserId, Forename = u.Forename, Surname = u.Surname, Email = u.Email, Password = u.PasswordHash };
+                UserData ud = Translate(u);
                 res.Add(ud);
             }
 
             return res;
+        }
+
+        private static UserData Translate(User user)
+        {
+            return user != null ?
+                new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname, Email = user.Email, Password = user.PasswordHash } :
+                null;
         }
 
         public UserData GetUser(int userId)
@@ -48,7 +62,7 @@ namespace FoxSky.TeachApp.Service
             var user = db.Users.SingleOrDefault(u => u.UserId == userId);
 
             return user != null ?
-                new UserData() { UserId = user.UserId, Forename = user.Forename, Surname = user.Surname, Email = user.Email, Password = user.PasswordHash, } :
+                Translate(user) :
                 null;
         }
 
@@ -68,6 +82,19 @@ namespace FoxSky.TeachApp.Service
                 user.Forename = userData.Forename;
                 db.SaveChanges();
             }
+        }
+
+        public UserData Login(string login, string password)
+        {
+            var hash = User.GetPasswordHash(password);
+            var db = GetContext();
+
+            var user = db.Users.Where(u =>
+                u.Login == login &&
+                u.PasswordHash == hash
+             ).FirstOrDefault();
+
+            return Translate(user);
         }
 
         public void DeleteUser(int userId)

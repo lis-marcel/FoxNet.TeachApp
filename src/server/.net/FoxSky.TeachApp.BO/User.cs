@@ -12,6 +12,7 @@ namespace FoxSky.TeachApp.BO
         public string Surname { get; set; }
         public string PasswordHash { get; set; }
         public string Email { get; set; }
+        public string  Login { get; set; }
 
         public ICollection<Word> Words { get; set; }
 

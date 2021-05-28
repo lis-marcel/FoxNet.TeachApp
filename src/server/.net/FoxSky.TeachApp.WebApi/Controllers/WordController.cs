@@ -10,6 +10,7 @@ namespace FoxSky.TeachApp.WebApi.Controllers
 {
     [ApiController]
     [Route("webapi/word")]
+
     public class WordController : ControllerBase
     {
         [HttpPost]

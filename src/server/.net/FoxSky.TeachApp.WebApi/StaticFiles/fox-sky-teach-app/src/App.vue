@@ -8,11 +8,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/">Home</router-link></li>
+              <!--<li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/">Home</router-link></li>
               <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/users">Users</router-link></li>
               <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/allwords">My words</router-link></li>
-              <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/addword">Add word</router-link></li>
-            <!--<li class="nav-item">
+              <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/addword">Add word</router-link></li>-->
+
+              <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/">HOME_TEST</router-link></li>
+              <!--<li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span></li>
+            <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item dropdown">
@@ -43,3 +46,22 @@
   </div>
 
 </template>
+
+<script>
+  export default {
+    computed: {
+      isLoggedIn: function() {
+        return this.$store.getters.isLoggedIn
+      },
+    },
+
+    methods: {
+      logout: function() {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+      }
+    }
+  }
+</script>

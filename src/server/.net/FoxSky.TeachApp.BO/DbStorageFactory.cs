@@ -36,11 +36,11 @@ namespace FoxSky.TeachApp.BO
         {
             var rnd = new Random();
 
+            ctx.Add(new Category() { CategoryName = "None" });
             ctx.Add(new Category() { CategoryName = "Food" });
             ctx.Add(new Category() { CategoryName = "Cars" });
             ctx.Add(new Category() { CategoryName = "Animals" });
             ctx.Add(new Category() { CategoryName = "IT" });
-            ctx.Add(new Category() { CategoryName = "None" });
             ctx.SaveChanges();
 
             for (int i = 0; i < 100; i++)
@@ -61,8 +61,9 @@ namespace FoxSky.TeachApp.BO
                 ctx.Users.Add(new User() { 
                     Surname = StringUtilities.GetRndWord(10),
                     Forename = StringUtilities.GetRndWord(10),
-                    PasswordHash = StringUtilities.GetRndWord(10),
+                    PasswordHash = User.GetPasswordHash("test"),
                     Email = StringUtilities.GetRndWord(10),
+                    Login = StringUtilities.GetRndWord(10),
                     Words = words 
                 });
                 ctx.SaveChanges();
