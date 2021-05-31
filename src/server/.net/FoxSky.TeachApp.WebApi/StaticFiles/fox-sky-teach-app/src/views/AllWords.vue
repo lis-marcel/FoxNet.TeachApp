@@ -45,14 +45,14 @@
 
         methods: {
             fetchAllWords: function($currentId) {
-                fetch(`${this.$serverUrl}/word/all/${$currentId}`)
+                fetch(`${this.$state.serverUrl}/word/all/${$currentId}`)
                     .then((response) => response.json())
                     .then((data) => (this.users = data))
                     .catch((error) => console.error(error));
             },
 
             deleteWord: function(id) {
-                fetch(`${this.$serverUrl}/word/delete/${id}`, {method: 'POST'})
+                fetch(`${this.$state.serverUrl}/word/delete/${id}`, {method: 'POST'})
                     .then(response => { 
                         if (response.ok) {
                             this.fetchAllWords()

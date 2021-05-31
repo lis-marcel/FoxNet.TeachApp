@@ -43,14 +43,14 @@
 
         methods: {
             fetchAllUsers: function() {
-                fetch(`${this.$serverUrl}/administration/user/all`)
+                fetch(`${this.$state.serverUrl}/administration/user/all`)
                     .then((response) => response.json())
                     .then((data) => (this.users = data))
                     .catch((error) => console.error(error));
             },
 
             deleteUser: function(id) {
-                fetch(`${this.$serverUrl}/administration/user/delete/${id}`, {method: 'POST'})
+                fetch(`${this.$state.serverUrl}/administration/user/delete/${id}`, {method: 'POST'})
                     .then(response => { 
                         if (response.ok) {
                             this.fetchAllUsers()

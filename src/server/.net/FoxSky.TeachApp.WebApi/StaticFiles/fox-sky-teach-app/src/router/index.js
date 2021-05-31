@@ -7,6 +7,7 @@ import AllWords from '../views/AllWords.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 import Secure from '../components/Secure.vue'
+import Store from '../store.js'
 
 const routes = [
   {
@@ -18,9 +19,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: '/users',
@@ -66,7 +64,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
+    if (Store.getters.isLoggedIn) {
       next()
       return
     }

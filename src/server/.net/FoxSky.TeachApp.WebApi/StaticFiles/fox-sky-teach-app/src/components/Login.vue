@@ -58,7 +58,10 @@ export default {
 
       this.$store
         .dispatch("login", { login, password })
-        .then(() => this.$router.push("/"))
+        .then(() => {
+            this.loginFailed = false
+            this.$router.push("/")
+          })
         .catch((error) => console.error(error), (this.loginFailed = true), this.login = '', this.password = '');
     },
   },
