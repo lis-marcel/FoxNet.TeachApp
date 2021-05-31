@@ -10,9 +10,17 @@ import Secure from '../components/Secure.vue'
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/users',
@@ -25,12 +33,6 @@ const routes = [
     name: 'edituser',
     component: EditUser
   },
-
-  {
-    path: '/login',
-    name: 'login',
-    component: Login
-  },
   {
     path: '/register',
     name: 'register',
@@ -40,11 +42,10 @@ const routes = [
     path: '/secure',
     name: 'secure',
     component: Secure,
-    meta: {
+    /*meta: {
       requiresAuth: true
-    }
+    }*/
   },
-
   {
     path: '/addword',
     name: 'addword',

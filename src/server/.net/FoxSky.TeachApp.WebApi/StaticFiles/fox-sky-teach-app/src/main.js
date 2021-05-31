@@ -3,7 +3,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import Vuex from 'vuex'
- import {store} from './store'
+import {store} from './store'
 import axios from 'axios'
 
 Vue.use(Vuex)
@@ -98,5 +98,3 @@ app.config.globalProperties.$store = new Vuex.Store({
 // }
 
 app.use(router).mount('#app')
-
-
