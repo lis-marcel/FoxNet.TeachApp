@@ -24,7 +24,7 @@ namespace FoxSky.TeachApp.WebApi.Controllers
 
                 if (loggedUser != null)
                     return Ok(new { 
-                        Token = "", 
+                        Token = Guid.NewGuid().ToString(),
                         User = loggedUser
                     });
                 else
