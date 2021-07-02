@@ -55,6 +55,7 @@ export default {
       
       let login = this.login;
       let password = this.password;
+      let token
 
       this.$store
         .dispatch("login", { login, password })

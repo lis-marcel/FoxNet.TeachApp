@@ -25,7 +25,7 @@ namespace FoxSky.TeachApp.Service
                 Email = userData.Email,
                 Forename = userData.Forename, 
                 Surname = userData.Surname,
-                PasswordHash = User.GetPasswordHash(userData.Password), 
+                PasswordHash = User.GetPasswordHash(userData.Password),
             };
 
             var db = GetContext();
