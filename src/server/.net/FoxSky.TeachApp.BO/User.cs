@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using FoxSky.TeachApp.Common;
 
 namespace FoxSky.TeachApp.BO
 {
@@ -12,9 +13,17 @@ namespace FoxSky.TeachApp.BO
         public string Surname { get; set; }
         public string PasswordHash { get; set; }
         public string Email { get; set; }
-        public string  Login { get; set; }
+        public string Login { get; set; }
+        public string Token { get; set; }
 
         public ICollection<Word> Words { get; set; }
+
+        public static string GetToken()
+        {
+            string token = Guid.NewGuid().ToString();
+
+            return token;
+        }
 
         public static string GetPasswordHash(string password)
         {
@@ -32,5 +41,6 @@ namespace FoxSky.TeachApp.BO
 
             return hash;
         }
+
     }
 }

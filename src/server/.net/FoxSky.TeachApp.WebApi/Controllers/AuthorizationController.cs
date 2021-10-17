@@ -23,12 +23,17 @@ namespace FoxSky.TeachApp.WebApi.Controllers
                 var loggedUser = userService.Login(userData.Login, userData.Password);
 
                 if (loggedUser != null)
-                    return Ok(new { 
-                        Token = Guid.NewGuid().ToString(),
+                {
+                    return Ok(new
+                    {
                         User = loggedUser
                     });
+                }
+                    
                 else
+                {
                     return Unauthorized();
+                }
             }
         }
     }

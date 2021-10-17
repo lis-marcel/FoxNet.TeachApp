@@ -61,6 +61,8 @@ namespace FoxSky.TeachApp.Service
             var db = GetContext(); 
             var user = db.Users.SingleOrDefault(u => u.UserId == userId);
 
+            GetToken(userId);
+
             return user != null ?
                 Translate(user) :
                 null;
@@ -94,7 +96,30 @@ namespace FoxSky.TeachApp.Service
                 u.PasswordHash == hash
              ).FirstOrDefault();
 
+            //GetToken(user.UserId);
+
             return Translate(user);
+        }
+
+        public void GetToken(int userId)
+        {
+            var db = GetContext();
+            var tk = User.GetToken();
+            var user = db.Users.SingleOrDefault(u => u.UserId == userId);
+
+            if (user == null)
+            {
+                db.SaveChanges();
+                db.Dispose();
+            }
+
+            else
+            {
+                user.Token = tk;
+
+                db.SaveChanges();
+                db.Dispose();
+            }
         }
 
         public void DeleteUser(int userId)

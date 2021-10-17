@@ -6,7 +6,7 @@
         </div>
       <main class="form-signin">
         <form class="login" @submit.prevent="tryLogin">
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+          <h1 class="h3 mb-3 fw-normal">Please log in</h1>
           <div class="form-floating">
             <label for="floatingInput">Login</label>
             <input
@@ -29,9 +29,10 @@
               placeholder="Password"
             />
           </div>
+          <button class="Sign-in" @submit.prevent="signIn">Sign in</button>
           <br />
           <button class="w-100 btn btn-lg btn-primary" type="submit">
-            Sign in
+            Log in
           </button>
         </form>
       </main>
@@ -50,6 +51,11 @@ export default {
   },
 
   methods: {
+    signIn: function() {
+      console.log("working")
+      this.$$router.push("/home")
+    },
+
     tryLogin: function () {
       this.loginFailed = false;
       
@@ -59,6 +65,7 @@ export default {
       this.$store
         .dispatch("login", { login, password })
         .then(() => {
+            console.log("working")
             this.loginFailed = false
             this.$router.push("/")
           })
@@ -97,7 +104,7 @@ body {
 }
 
 .alert alert-danger {
-    text-align: center;
+  text-align: center;
 }
 
 .container {
@@ -114,4 +121,5 @@ body {
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
 }
+
 </style>
